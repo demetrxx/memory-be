@@ -1,0 +1,22 @@
+name: memory
+services:
+  redis_client:
+    image: redis:7-alpine
+    container_name: redis_client
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+
+  db:
+    image: pgvector/pgvector:pg18-trixie
+    container_name: db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: app_db
+    ports:
+      - '5432:5432'
+
+volumes:
+  redis_data:
