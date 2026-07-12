@@ -16,6 +16,34 @@ export enum SettlementType {
   OTHER = 'other',
 }
 
+export enum Region {
+  Kharkiv = 'kharkiv',
+  Kyiv = 'kyiv',
+  Lviv = 'lviv',
+  Odesa = 'odesa',
+  Zaporizhzhia = 'zaporizhzhia',
+  Zhytomyr = 'zhytomyr',
+  IvanoFrankivsk = 'ivano-frankivsk',
+  Kirovohrad = 'kirovohrad',
+  Lutsk = 'lutsk',
+  Kherson = 'kherson',
+  Khmelnytskyi = 'khmelnytskyi',
+  Cherkasy = 'cherkasy',
+  Chernivtsi = 'chernivtsi',
+  Chernihiv = 'chernihiv',
+  Dnipropetrovsk = 'dnipropetrovsk',
+  Donetsk = 'donetsk',
+  Luhansk = 'luhansk',
+  Mykolaiv = 'mykolaiv',
+  Rivne = 'rivne',
+  Sumy = 'sumy',
+  Ternopil = 'ternopil',
+  Vinnytsia = 'vinnytsia',
+  Poltava = 'poltava',
+  Uzhhorod = 'uzhhorod',
+  Crimea = 'crimea',
+}
+
 @Entity('settlement')
 export class SettlementEntity extends AbstractEntity {
   @Column({
