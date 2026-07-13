@@ -1,19 +1,29 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, Index } from 'typeorm';
 
 import { AbstractEntity } from '../common/base.entity';
 
-export enum MilitaryUnitType {
-  COMMAND = 'command', // Командування
-  CORPS = 'corps', // Корпус
-  BRIGADE = 'brigade', // Бригада
-  REGIMENT = 'regiment', // Полк
-  BATTALION = 'battalion', // Батальйон
-  COMPANY = 'company', // Рота
-  PLATOON = 'platoon', // Взвод
-  DETACHMENT = 'detachment', // Загін
-  CENTER = 'center', // Центр
-  OTHER = 'other', // Інше
-  UNKNOWN = 'unknown', // Невідомо
+export enum MilitaryUnitSpecialization {
+  MECHANIZED = 'mechanized', // механізована
+  MOTORIZED_INFANTRY = 'motorized_infantry', // мотопіхотна
+  INFANTRY = 'infantry', // піхотна
+  ASSAULT = 'assault', // штурмова
+  MOUNTAIN_ASSAULT = 'mountain_assault', // гірсько-штурмова
+
+  AIR_ASSAULT = 'air_assault', // десантно-штурмова
+  AIRBORNE = 'airborne', // повітрянодесантна
+  AIRMOBILE = 'airmobile', // аеромобільна
+
+  TANK = 'tank', // танкова
+  ARTILLERY = 'artillery', // артилерійська
+  MARINE = 'marine', // морської піхоти
+
+  SPECIAL_PURPOSE = 'special_purpose', // спеціального призначення
+  OPERATIONAL_PURPOSE = 'operational_purpose', // оперативного призначення
+
+  TERRITORIAL_DEFENSE = 'territorial_defense', // територіальної оборони
+
+  OTHER = 'other',
+  UNKNOWN = 'unknown',
 }
 
 export enum MilitaryUnitBranch {
@@ -27,21 +37,86 @@ export enum MilitaryUnitBranch {
   OTHER = 'other', // Інше
 }
 
+export enum MilitaryUnitNameType {
+  NAMED_AFTER = 'named_after',
+  GEOGRAPHIC = 'geographic',
+  QUOTED_NAME = 'quoted_name',
+  OTHER = 'other',
+}
+
+export interface MilitaryUnit {
+  number?: number;
+  echelon: MilitaryUnitEchelon;
+  specialization?: MilitaryUnitSpecialization;
+  branch: MilitaryUnitBranch;
+  isSeparate?: boolean;
+  isPresidential?: boolean;
+  names: MilitaryUnitName[];
+}
+
+export interface MilitaryUnitName {
+  type: MilitaryUnitNameType;
+  value: string;
+}
+
+export enum MilitaryUnitEchelon {
+  COMMAND = 'command',
+  CORPS = 'corps',
+  BRIGADE = 'brigade',
+  REGIMENT = 'regiment',
+  BATTALION = 'battalion',
+  COMPANY = 'company',
+  PLATOON = 'platoon',
+  DETACHMENT = 'detachment',
+  CENTER = 'center',
+  OTHER = 'other',
+  UNKNOWN = 'unknown',
+}
+
+// unique index on type and number
+@Index(['echelon', 'number'], { unique: true })
 @Entity('military_unit')
 export class MilitaryUnitEntity extends AbstractEntity {
   @Column({
-    type: 'varchar',
-    length: 255,
-    name: 'name',
+    type: 'jsonb',
+    name: 'names',
   })
-  name: string;
+  names: MilitaryUnitName[];
+
+  @Column({
+    type: 'boolean',
+    name: 'is_separate',
+    default: false,
+  })
+  isSeparate: boolean;
+
+  @Column({
+    type: 'boolean',
+    name: 'is_presidential',
+    default: false,
+  })
+  isPresidential: boolean;
+
+  @Column({
+    type: 'integer',
+    name: 'number',
+  })
+  number: number;
 
   @Column({
     type: 'enum',
-    enum: MilitaryUnitType,
-    name: 'type',
+    enum: MilitaryUnitEchelon,
+    name: 'echelon',
   })
-  type: MilitaryUnitType;
+  echelon: MilitaryUnitEchelon;
+
+  @Column({
+    type: 'enum',
+    enum: MilitaryUnitSpecialization,
+    name: 'specialization',
+    nullable: true,
+  })
+  specialization: MilitaryUnitSpecialization;
 
   @Column({
     type: 'enum',

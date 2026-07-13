@@ -18,3 +18,4 @@ export * from './deceased.entity';
 export * from './military-unit.entity';
 export * from './system-log.entity';
 export * from './notification.entity';
+export * from './deceased-media.entity';

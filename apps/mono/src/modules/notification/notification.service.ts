@@ -31,11 +31,6 @@ export class NotificationService {
 
     const [data, total] = await qb.getManyAndCount();
 
-    if (total === 0) {
-      // seed
-      return this.getMany(userId, query);
-    }
-
     return {
       total,
       data,

@@ -1,6 +1,14 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 
 import { AbstractEntity } from '../common/base.entity';
+import { DeceasedMediaEntity } from './deceased-media.entity';
 import { FileEntity } from './file.entity';
 import { MilitaryUnitEntity } from './military-unit.entity';
 import { SettlementEntity } from './settlement.entity';
@@ -15,6 +23,16 @@ export enum DeceasedStatus {
   Pending = 'pending',
   Approved = 'approved',
   Rejected = 'rejected',
+}
+
+export enum MilitaryRoleType {
+  Reporter = 'reporter',
+  Soldier = 'soldier',
+  Officer = 'officer',
+  Pilot = 'pilot',
+  Mechanic = 'mechanic',
+  Medic = 'medic',
+  Other = 'other',
 }
 
 @Entity('deceased')
@@ -137,6 +155,14 @@ export class DeceasedEntity extends AbstractEntity {
   callSign: string | null;
 
   @Column({
+    type: 'enum',
+    enum: MilitaryRoleType,
+    name: 'military_role',
+    nullable: true,
+  })
+  militaryRole: MilitaryRoleType | null;
+
+  @Column({
     type: 'varchar',
     length: 255,
     name: 'death_cause',
@@ -170,4 +196,15 @@ export class DeceasedEntity extends AbstractEntity {
     nullable: true,
   })
   createdById: string | null;
+
+  @Column({
+    type: 'varchar',
+    length: 255,
+    name: 'created_by_relation',
+    nullable: true,
+  })
+  createdByRelation: string | null;
+
+  @OneToMany(() => DeceasedMediaEntity, (entity) => entity.deceased)
+  media: DeceasedMediaEntity[];
 }

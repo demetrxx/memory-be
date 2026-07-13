@@ -1,22 +1,18 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { AbstractEntity } from '../common/base.entity';
+import { AbstractEntity, MediaType } from '../common';
 import { FileEntity } from './file.entity';
 import { MemoryEntity } from './memory.entity';
-
-export enum MemoryMediaType {
-  IMAGE = 'image',
-  VIDEO = 'video',
-}
 
 @Entity('memory_media')
 export class MemoryMediaEntity extends AbstractEntity {
   @Column({
     type: 'enum',
-    enum: MemoryMediaType,
+    enum: MediaType,
     name: 'type',
+    enumName: 'media_type',
   })
-  type: MemoryMediaType;
+  type: MediaType;
 
   @ManyToOne(() => MemoryEntity, { nullable: true })
   @JoinColumn({
