@@ -28,16 +28,23 @@ export class MilitaryUnitService {
     if (q.search) {
       // in brackets
       const searchObj = {
-        search: `%${q.search.toLowerCase()}%`,
+        search: `%${q.search}%`,
       };
 
       query.andWhere(
         new Brackets((qb) => {
-          qb.where('mu.names @> :search', searchObj);
-          qb.orWhere('mu.number = :search', searchObj);
-          qb.orWhere('mu.echelon = :search', searchObj);
-          qb.orWhere('mu.specialization = :search', searchObj);
-          qb.orWhere('mu.branch = :search', searchObj);
+          qb.where(
+            `EXISTS (
+              SELECT 1
+              FROM jsonb_array_elements(mu.names) AS unit_name
+              WHERE unit_name ->> 'value' ILIKE :search
+            )`,
+            searchObj,
+          );
+          qb.orWhere('mu.number::text ILIKE :search', searchObj);
+          qb.orWhere('mu.echelon::text ILIKE :search', searchObj);
+          qb.orWhere('mu.specialization::text ILIKE :search', searchObj);
+          qb.orWhere('mu.branch::text ILIKE :search', searchObj);
         }),
       );
     }
