@@ -1,6 +1,7 @@
 import {
   DeceasedEntity,
   DeceasedMediaEntity,
+  DeceasedStatus,
   Gender,
   MediaType,
   MilitaryRoleType,
@@ -56,6 +57,8 @@ export class DeceasedService {
 
     const deceased = await this.dataSource.getRepository(DeceasedEntity).save({
       ...dto,
+      slug: new Date().getTime().toString(),
+      status: DeceasedStatus.Pending,
       createdById: user.id,
     });
 
@@ -72,7 +75,7 @@ export class DeceasedService {
     deceased.media = mediaEntities;
     deceased.createdBy = user;
 
-    return deceased;
+    return this.getOne(deceased.id);
   }
 
   async getOne(id: string) {
