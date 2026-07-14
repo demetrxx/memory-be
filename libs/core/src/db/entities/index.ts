@@ -19,3 +19,8 @@ export * from './military-unit.entity';
 export * from './system-log.entity';
 export * from './notification.entity';
 export * from './deceased-media.entity';
+export * from './deceased-item.entity';
+export * from './product.entity';
+export * from './memory.entity';
+export * from './memory-media.entity';
+export * from './cart-item.entity';

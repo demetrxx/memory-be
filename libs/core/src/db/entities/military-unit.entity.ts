@@ -121,8 +121,8 @@ export class MilitaryUnitEntity extends AbstractEntity {
   @Column({
     type: 'enum',
     enum: MilitaryUnitBranch,
-    name: 'branches',
-    array: true,
+    name: 'branch',
+    enumName: 'military_unit_branch',
   })
-  branches: MilitaryUnitBranch[];
+  branch: MilitaryUnitBranch;
 }

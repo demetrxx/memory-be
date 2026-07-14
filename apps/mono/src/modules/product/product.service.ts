@@ -1,7 +1,4 @@
-import {
-  ProductEntity,
-  ProductType,
-} from '@app/core/db/entities/product.entity';
+import { ProductEntity, ProductType } from '@app/core';
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
