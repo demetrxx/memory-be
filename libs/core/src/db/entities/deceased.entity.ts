@@ -138,6 +138,20 @@ export class DeceasedEntity extends AbstractEntity {
   })
   avatarId: string | null;
 
+  @OneToOne(() => FileEntity, { nullable: true })
+  @JoinColumn({
+    name: 'life_photo_id',
+    referencedColumnName: 'id',
+  })
+  lifePhoto: FileEntity | null;
+
+  @Column({
+    type: 'uuid',
+    name: 'life_photo_id',
+    nullable: true,
+  })
+  lifePhotoId: string | null;
+
   @Column({
     type: 'text',
     name: 'bio',

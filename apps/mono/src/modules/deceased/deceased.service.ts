@@ -98,9 +98,11 @@ export class DeceasedService {
     const queryBuilder = repo
       .createQueryBuilder('deceased')
       .leftJoinAndSelect('deceased.avatar', 'avatar')
+      .leftJoinAndSelect('deceased.lifePhoto', 'lifePhoto')
       .leftJoinAndSelect('deceased.birthPlace', 'birthPlace')
       .leftJoinAndSelect('deceased.deathPlace', 'deathPlace')
       .leftJoinAndSelect('deceased.deathMilitaryUnit', 'deathMilitaryUnit')
+      .leftJoinAndSelect('deceased.memory', 'memory')
       .orderBy('deceased.createdAt', query.order)
       .skip(query.skip)
       .take(query.take);

@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { AbstractEntity } from '../common/base.entity';
 import { DeceasedEntity } from './deceased.entity';
+import { MemoryMediaEntity } from './memory-media.entity';
 import { UserEntity } from './user.entity';
 
 export enum MemoryStatus {
@@ -52,4 +53,7 @@ export class MemoryEntity extends AbstractEntity {
     name: 'status',
   })
   status: MemoryStatus;
+
+  @OneToMany(() => MemoryMediaEntity, (media) => media.memory)
+  media: MemoryMediaEntity[];
 }

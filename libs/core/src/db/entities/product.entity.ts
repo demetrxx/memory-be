@@ -30,4 +30,10 @@ export class ProductEntity extends AbstractEntity {
     name: 'is_active',
   })
   isActive: boolean;
+
+  @Column({
+    type: 'integer',
+    name: 'validity_days',
+  })
+  validityDays: number;
 }

@@ -96,6 +96,12 @@ export class DeceasedDto {
   avatarUrl: string;
 
   @ApiProperty({
+    description: 'The life photo url of the deceased',
+    example: 'https://example.com/life-photo.jpg',
+  })
+  lifePhotoUrl: string;
+
+  @ApiProperty({
     description: 'The bio of the deceased',
     example: 'John Doe is a soldier who died in the war.',
   })
@@ -113,6 +119,18 @@ export class DeceasedDto {
   })
   deathMilitaryUnit: MilitaryUnitDto;
 
+  @ApiProperty({
+    description: 'The comments count of the deceased',
+    example: 0,
+  })
+  commentsCount: number;
+
+  @ApiProperty({
+    description: 'The memories count of the deceased',
+    example: 0,
+  })
+  memoriesCount: number;
+
   static mapFromEntity(entity: DeceasedEntity): DeceasedDto {
     return {
       id: entity.id,
@@ -126,11 +144,14 @@ export class DeceasedDto {
       dob: entity.dob,
       dod: entity.dod,
       lifeRole: entity.lifeRole,
+      lifePhotoUrl: entity.lifePhoto?.url,
       birthPlace: SettlementDto.mapFromEntity(entity.birthPlace),
       deathPlace: SettlementDto.mapFromEntity(entity.deathPlace),
       avatarUrl: entity.avatar?.url,
       bio: entity.bio,
       deathCause: entity.deathCause,
+      commentsCount: 0,
+      memoriesCount: 0,
       deathMilitaryUnit: MilitaryUnitDto.mapFromEntity(
         entity.deathMilitaryUnit,
       ),

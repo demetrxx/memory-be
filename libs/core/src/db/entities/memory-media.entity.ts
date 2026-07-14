@@ -14,7 +14,7 @@ export class MemoryMediaEntity extends AbstractEntity {
   })
   type: MediaType;
 
-  @ManyToOne(() => MemoryEntity, { nullable: true })
+  @ManyToOne(() => MemoryEntity, (memory) => memory.media, { nullable: true })
   @JoinColumn({
     name: 'memory_id',
     referencedColumnName: 'id',
