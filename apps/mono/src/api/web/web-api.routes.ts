@@ -3,6 +3,7 @@ import { RouteTree } from '@nestjs/core';
 import { AuthApiModule } from './auth';
 import { DeceasedApiModule } from './deceased';
 import { FilesApiModule } from './files';
+import { MapApiModule } from './map';
 import { MilitaryUnitsApiModule } from './military-units';
 import { NotificationsApiModule } from './notifications';
 import { PaymentsApiModule } from './payments';
@@ -44,6 +45,10 @@ export const webApiRoutes: RouteTree = {
     {
       path: 'military-units',
       module: MilitaryUnitsApiModule,
+    },
+    {
+      path: 'map',
+      module: MapApiModule,
     },
   ],
 };

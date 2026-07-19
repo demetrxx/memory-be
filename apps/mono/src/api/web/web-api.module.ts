@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { AuthApiModule } from './auth';
 import { DeceasedApiModule } from './deceased';
 import { FilesApiModule } from './files';
+import { MapApiModule } from './map';
 import { MilitaryUnitsApiModule } from './military-units';
 import { NotificationsApiModule } from './notifications';
 import { PaymentsApiModule } from './payments';
@@ -19,6 +20,7 @@ import { SettlementsApiModule } from './settlements';
     FilesApiModule,
     DeceasedApiModule,
     MilitaryUnitsApiModule,
+    MapApiModule,
   ],
   controllers: [],
 })

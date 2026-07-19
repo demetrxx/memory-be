@@ -7,41 +7,41 @@ export enum Country {
 }
 
 export enum SettlementType {
+  CITY = 'city', // M,K
+  SETTLEMENT = 'settlement', // X
+  VILLAGE = 'village', // C
+
   ISLAND = 'island',
-  CITY = 'city',
-  TOWN = 'town',
-  URBAN_SETTLEMENT = 'urban_settlement',
-  VILLAGE = 'village',
   HAMLET = 'hamlet',
   OTHER = 'other',
 }
 
 export enum Region {
-  Kharkiv = 'kharkiv',
-  Kyiv = 'kyiv',
-  Lviv = 'lviv',
-  Odesa = 'odesa',
-  Zaporizhzhia = 'zaporizhzhia',
-  Zhytomyr = 'zhytomyr',
-  IvanoFrankivsk = 'ivano-frankivsk',
-  Kirovohrad = 'kirovohrad',
-  Lutsk = 'lutsk',
-  Kherson = 'kherson',
-  Khmelnytskyi = 'khmelnytskyi',
-  Cherkasy = 'cherkasy',
-  Chernivtsi = 'chernivtsi',
-  Chernihiv = 'chernihiv',
-  Dnipropetrovsk = 'dnipropetrovsk',
-  Donetsk = 'donetsk',
-  Luhansk = 'luhansk',
-  Mykolaiv = 'mykolaiv',
-  Rivne = 'rivne',
-  Sumy = 'sumy',
-  Ternopil = 'ternopil',
-  Vinnytsia = 'vinnytsia',
-  Poltava = 'poltava',
-  Uzhhorod = 'uzhhorod',
-  Crimea = 'crimea',
+  Kharkiv = 'kharkiv', // UA63000000000041885
+  Kyiv = 'kyiv', // UA32000000000030281
+  Lviv = 'lviv', // UA46000000000026241
+  Odesa = 'odesa', // UA51000000000030770
+  Zaporizhzhia = 'zaporizhzhia', // UA23000000000064947
+  Zhytomyr = 'zhytomyr', // UA18000000000041385
+  IvanoFrankivsk = 'ivano-frankivsk', // UA26000000000069363
+  Kirovohrad = 'kirovohrad', // UA35000000000016081
+  Lutsk = 'lutsk', // UA07000000000024379
+  Kherson = 'kherson', // UA65000000000030969
+  Khmelnytskyi = 'khmelnytskyi', // UA68000000000099709
+  Cherkasy = 'cherkasy', // UA71000000000010357
+  Chernivtsi = 'chernivtsi', // UA73000000000044923
+  Chernihiv = 'chernihiv', // UA74000000000025378
+  Dnipropetrovsk = 'dnipropetrovsk', // UA12000000000090473
+  Donetsk = 'donetsk', // UA14000000000091971
+  Luhansk = 'luhansk', // UA44000000000018893
+  Mykolaiv = 'mykolaiv', // UA48000000000039575
+  Rivne = 'rivne', // UA56000000000066151
+  Sumy = 'sumy', // UA59000000000057109
+  Ternopil = 'ternopil', // UA61000000000060328
+  Vinnytsia = 'vinnytsia', // UA05000000000010236
+  Poltava = 'poltava', // UA53000000000028050
+  Uzhhorod = 'uzhhorod', // UA21000000000011690
+  Crimea = 'crimea', // UA01000000000013043
 }
 
 @Entity('settlement')
@@ -54,12 +54,40 @@ export class SettlementEntity extends AbstractEntity {
   name: string;
 
   @Column({
+    type: 'enum',
+    enum: SettlementType,
+    name: 'type',
+    enumName: 'settlement_type',
+  })
+  type: SettlementType;
+
+  @Column({
     type: 'varchar',
     length: 255,
-    name: 'region',
-    nullable: true,
+    name: 'aliases',
+    array: true,
   })
-  region: string | null;
+  aliases: string[];
+
+  @Column({
+    name: 'region',
+    type: 'enum',
+    enum: Region,
+    enumName: 'region',
+  })
+  region: Region;
+
+  @Column({
+    name: 'lat',
+    type: 'double precision',
+  })
+  lat: number;
+
+  @Column({
+    name: 'lng',
+    type: 'double precision',
+  })
+  lng: number;
 
   @Column({
     type: 'enum',

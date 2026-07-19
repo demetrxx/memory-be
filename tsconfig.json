@@ -9,8 +9,9 @@
     "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
+    "resolveJsonModule": true,
     "incremental": true,
+    "baseUrl": "./",
     "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
@@ -18,24 +19,12 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@/*": [
-        "apps/mono/src/*"
-      ],
-      "@/modules/*": [
-        "apps/mono/src/modules/*"
-      ],
-      "@/common/*": [
-        "apps/mono/src/common/*"
-      ],
-      "@/api/*": [
-        "apps/mono/src/api/*"
-      ],
-      "@app/core": [
-        "libs/core/src"
-      ],
-      "@app/core/*": [
-        "libs/core/src/*"
-      ]
-    },
+      "@/*": ["apps/mono/src/*"],
+      "@/modules/*": ["apps/mono/src/modules/*"],
+      "@/common/*": ["apps/mono/src/common/*"],
+      "@/api/*": ["apps/mono/src/api/*"],
+      "@app/core": ["libs/core/src"],
+      "@app/core/*": ["libs/core/src/*"]
+    }
   }
 }
